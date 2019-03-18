@@ -1,0 +1,9 @@
+@media (max-width: 576px){
+  .nav-item{
+    text-align: center;
+    border-bottom: 1px solid $lighter;
+  }
+  .nav-link{
+    padding: 1rem 0;
+  }
+}
