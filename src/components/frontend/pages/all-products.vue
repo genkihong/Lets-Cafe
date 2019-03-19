@@ -111,7 +111,7 @@ export default {
         console.log('user 產品列表', response);
         vm.products = response.data.products;
 
-        vm.newProduct = vm.products.slice(3,7);
+        vm.newProduct = vm.products.slice(2,6);
         console.log('熱銷咖啡',vm.newProduct);
 
         vm.pagination = response.data.pagination; // 取得分頁資料
