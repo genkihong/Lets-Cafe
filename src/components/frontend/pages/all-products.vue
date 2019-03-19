@@ -8,7 +8,7 @@
         <div class="col-6 col-md-3" v-for="product in newProduct" :key="product.id">
           <div class="img-hovereffect">
             <div class="img-h img-fluid bg-cover" :style="{backgroundImage: `url(${product.imageUrl})`}"></div>
-            <!-- <img class="img-fluid bg-cover" src="static/images/irish.jpg" alt=""> -->
+            <!-- <img class="img-fluid bg-cover" src="product.imageUrl" alt=""> -->
             <div class="overlay">
               <router-link :to="{name:'UniProduct', params:{ id: product.id }}">
                 <h5 class="product-title">{{product.title}}</h5>
@@ -18,7 +18,7 @@
         </div>
         <!-- <div class="col-6 col-md-3">
           <div class="img-hovereffect">
-            <div class="img-new-h img-fluid bg-cover" style="background-image: url(static/images/con-panna.jpg)"></div>
+            <div class="img-h img-fluid bg-cover" style="background-image: url(static/images/con-panna.jpg)"></div>
             <img class="img-fluid bg-cover" src="static/images/viennese.jpg" alt="">
             <div class="overlay">
               <h6>con panna</h6>
@@ -27,7 +27,7 @@
         </div>
         <div class="col-6 col-md-3">
           <div class="img-hovereffect">
-            <div class="img-new-h img-fluid bg-cover" style="background-image: url(static/images/macchiato.jpg)"></div>
+            <div class="img-h img-fluid bg-cover" style="background-image: url(static/images/macchiato.jpg)"></div>
             <img class="img-fluid bg-cover" src="static/images/espresso.jpg" alt="">
             <div class="overlay">
               <h6>macchiato</h6>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-6 col-md-3">
           <div class="img-hovereffect">
-            <div class="img-new-h img-fluid bg-cover" style="background-image: url(static/images/latte.jpg)"></div>
+            <div class="img-h img-fluid bg-cover" style="background-image: url(static/images/latte.jpg)"></div>
             <img class="img-fluid bg-cover" src="static/images/latte.jpg" alt="">
             <div class="overlay">
               <h6>latte</h6>
@@ -111,7 +111,7 @@ export default {
         console.log('user 產品列表', response);
         vm.products = response.data.products;
 
-        vm.newProduct = vm.products.slice(1,5);
+        vm.newProduct = vm.products.slice(3,7);
         console.log('熱銷咖啡',vm.newProduct);
 
         vm.pagination = response.data.pagination; // 取得分頁資料

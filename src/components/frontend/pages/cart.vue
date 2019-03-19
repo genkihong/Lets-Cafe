@@ -73,7 +73,7 @@
               </tbody>
               <tfoot>
                 <!-- 原價 -->
-                <tr class="d-none d-sm-table-row" v-if="myCart.final_total === myCart.total">
+                <tr class="d-none d-sm-table-row">
                   <td colspan="4" class="h3 text-right">總計</td>
                   <td class="h3 text-right">
                     <strong>{{myCart.total | currency}}</strong>
@@ -82,7 +82,9 @@
                 <!-- 折扣價 -->
                 <tr class="d-none d-sm-table-row" v-if="myCart.final_total !== myCart.total">
                   <td colspan="4" class="h3 text-right text-primary">折扣價</td>
-                  <td class="h3 text-right text-primary">{{myCart.final_total | currency}}</td>
+                  <td class="h3 text-right text-primary">
+                    <strong>{{myCart.final_total | currency}}</strong>
+                  </td>
                 </tr>
               </tfoot>
             </table>

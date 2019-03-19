@@ -28,7 +28,7 @@
         </div>   
 
         <div class="col-md-6">
-          <h3 class="text-lighter mb-3">{{ product.title }}</h3>
+          <h3 class="text-lighter my-3 mt-md-0">{{ product.title }}</h3>
           <blockquote class="blockquote mb-3">
             <p class="mb-2">{{ product.content }}</p>
             <footer class="blockquote-footer text-right">{{ product.description }}</footer>

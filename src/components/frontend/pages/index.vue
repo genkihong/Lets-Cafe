@@ -1,20 +1,21 @@
 <template>
-<div class="bg-main">
+  <div class="bg-main">
 
-  <Alert/>
+    <Alert/>
+    
+    <header>
+      <FrontNavbar/> 
+      <Carousel/>
+    </header>   
 
-  <FrontNavbar/> 
+    <main>
+      <router-view/>
+    </main>
 
-  <Carousel/>
-
-  <main>
-    <router-view/>
-  </main>
-
-  <Footer/>
-  
-</div>
-  
+    <Footer/>
+    
+  </div>
+    
 </template>
 
 <script>
