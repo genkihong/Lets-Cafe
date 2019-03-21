@@ -87,16 +87,16 @@
                   </td>
                 </tr>
               </tfoot>
-            </table>
-            <div class="input-group input-group-sm">
-              <input type="text" class="form-control" placeholder="請輸入優惠碼 coffee" v-model="coupon_code">
-              <div class="input-group-append">
-                <button class="btn btn-outline-light" type="button" @click="addCouponCode">
-                  套用優惠碼
-                </button>
-              </div>
-            </div>         
+            </table>                
           </div>
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="請輸入優惠碼 coffee" v-model="coupon_code">
+            <div class="input-group-append">
+              <button class="btn btn-outline-light" type="button" @click="addCouponCode">
+                套用優惠碼
+              </button>
+            </div>
+          </div>    
           <router-link class="btn btn-lighter btn-block btn-lg card-btn my-3" to="/order">
             <i class="fas fa-user-alt fa-lg mr-3"></i>建立訂單
           </router-link>
@@ -182,7 +182,7 @@ export default {
   methods: {
     getCart() {  // 取得購物車內容
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/cart`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
       vm.isLoading = true;
       
       this.$http.get(api).then((response) => {
@@ -207,7 +207,7 @@ export default {
     },
     removeCart() { // 刪除購物車
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/cart/${vm.tempCart.id}`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${vm.tempCart.id}`;
       vm.isLoading = true;
       
       this.$http.delete(api).then((response) => {
@@ -221,7 +221,7 @@ export default {
     },
     addCouponCode() { // 使用優惠券
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/coupon`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`;
       const coupon = {
         code: vm.coupon_code,
       }
@@ -236,7 +236,8 @@ export default {
         } else {
           vm.$bus.$emit('push-msg', response.data.message, 'danger');
           vm.getCart();
-          vm.isLoading = false;        }
+          vm.isLoading = false;
+        }
       });
     },    
   },

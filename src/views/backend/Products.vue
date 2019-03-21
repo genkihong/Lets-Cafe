@@ -130,7 +130,7 @@
 
 <script>
 import $ from 'jquery';
-import DeleteModal from '../DeleteModal';
+import DeleteModal from '../../components/backend/DeleteModal';
 export default {
   data() {
     return {
@@ -177,13 +177,13 @@ export default {
     },
     updateProduct() {         // 新增 & 修改商品
       const vm = this;
-      let api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/admin/product`; // 新增商品 API
+      let api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product`; // 新增商品 API
       let httpMethod = 'post';
       let showPage = 1; // 新增商品後, 畫面會回到第一頁  
       let failMsg =  '無法新增產品'   
 
       if (!vm.isNew) { // 更換 API method
-        api = `${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/admin/product/${vm.tempProduct.id}` // 修改商品 API
+        api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}` // 修改商品 API
         httpMethod = 'put';
         showPage = vm.pagination.current_page;  // 修改商品後, 畫面會在同一頁面
         failMsg = '無法修改產品';
@@ -209,7 +209,7 @@ export default {
     },
     delProduct() {            // 刪除商品
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
       
       this.$http.delete(api).then((response) => {
         console.log('刪除商品', response.data);
@@ -231,7 +231,7 @@ export default {
       const formData = new FormData();
       formData.append('file-to-upload', uploadedFile); // append(欄位名稱, 要上傳的檔案)
 
-      const api = `${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/admin/upload`;
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/upload`;
       vm.status.fileUploading = true;
       this.$http.post(api, formData, {
         headers: {

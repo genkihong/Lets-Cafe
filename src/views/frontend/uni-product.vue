@@ -65,7 +65,7 @@ export default {
   methods: {
     getProduct(id) {  // 單一商品(查看更多)
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/product/${id}`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
       vm.isLoading = true;
       
       this.$http.get(api).then((response) => {
@@ -77,7 +77,7 @@ export default {
     },
     addtoCart(id, qty = 1) {  // 加入購物車
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/cart`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
       vm.status.loadingItem = id;
       const cart = {
         product_id: id,

@@ -10,7 +10,7 @@
 
         <!-- logo -->
         <router-link class="navbar-brand" to="/">
-          <h3 class="mb-0"><i class="text-lighter fas fa-mug-hot"></i></h3>      
+          <i class="text-lighter fas fa-mug-hot fa-lg"></i>     
         </router-link>
 
         <!-- cart-icon -->
@@ -59,7 +59,7 @@ export default {
   methods: {
     getCart() {  // 取得購物車內容
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/cart`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
             
       this.$http.get(api).then((response) => {
         console.log('navbar 購物車', response);

@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     signin() {
-      const api =`${process.env.API_PATH}/admin/signin`;
+      const api =`${process.env.VUE_APP_API_PATH}/admin/signin`;
       const vm = this;
 
       this.$http.post(api, vm.user).then((response) => {

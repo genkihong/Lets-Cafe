@@ -1,27 +1,21 @@
 <template>
   <div class="bg-main">
-
-    <Alert/>
-    
+    <Alert/>    
     <header>
       <FrontNavbar/> 
       <Carousel/>
-    </header>   
-
+    </header>
     <main>
       <router-view/>
     </main>
-
-    <Footer/>
-    
-  </div>
-    
+    <Footer/>    
+  </div>    
 </template>
 
 <script>
-import Carousel from '../carousel';
-import FrontNavbar from '../frontNavbar';
-import Footer from '../footer';
+import Carousel from '../../components/frontend/carousel';
+import FrontNavbar from '../../components/frontend/frontNavbar';
+import Footer from '../../components/frontend/footer';
 
 export default {
   components: {

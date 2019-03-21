@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-center">
     <nav aria-label="Page navigation example">
-      <ul class="pagination border">
+      <ul class="pagination border">        
         <li class="page-item" :class="{'disabled': !Pages.has_pre}">
           <a class="page-link" href="#" aria-label="Previous" @click.prevent="getPage(Pages.current_page - 1)">
             <span aria-hidden="true">&laquo;</span>
@@ -30,7 +30,7 @@ export default {
   },
   methods: {                // 傳出去給 products 的方法
     getPage(page){
-      console.log('分頁元件',page);
+      // console.log('分頁元件',page);
       this.$emit('getPage', page);
     }
   },

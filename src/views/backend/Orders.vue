@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import Pagination from '../Pagination'; // 載入分頁元件
+
 export default {
   data() {
     return {
@@ -49,13 +49,10 @@ export default {
       isLoading: false,
     };
   },
-  components: { // 啟用分頁元件
-    Pagination,
-  },
   methods: {
     getOrders(page = 1) { // 取得所有訂單內容
       const vm = this;
-      const url = `${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/admin/orders?page=${page}`;
+      const url = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/orders?page=${page}`;
       vm.isLoading = true;
       
       this.$http.get(url, vm.tempProduct).then((response) => {
@@ -82,7 +79,7 @@ export default {
   },
   created() {
     this.getOrders();
-    console.log(process.env.API_PATH);
+    console.log(process.env.VUE_APP_API_PATH);
   },
 };
 </script>

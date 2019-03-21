@@ -107,7 +107,7 @@ export default {
   methods: {
     getOrder() { // 取得訂單內容
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/order/${vm.orderId}`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/order/${vm.orderId}`;
       vm.isLoading = true;
       
       this.$http.get(api).then((response) => {
@@ -118,7 +118,7 @@ export default {
     },
     payOrder() { // 結帳
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/pay/${vm.orderId}`;
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/pay/${vm.orderId}`;
       vm.isLoading = true;
       
       this.$http.post(api).then((response) => {
