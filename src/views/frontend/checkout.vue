@@ -103,25 +103,25 @@ export default {
     getOrder() {
       const vm = this;
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/order/${vm.orderId}`;
-      vm.$store.dispatch('updateLoading', true);
+      vm.$store.dispatch('updateLoading', true, { root: true });
       
       this.$http.get(api).then((response) => {
         console.log('訂單內容', response.data);
         vm.order = response.data.order;
-        vm.$store.dispatch('updateLoading', false);
+        vm.$store.dispatch('updateLoading', false, { root: true });
       });
     },
     payOrder() {
       const vm = this;
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/pay/${vm.orderId}`;
-      vm.$store.dispatch('updateLoading', true);
+      vm.$store.dispatch('updateLoading', true, { root: true });
       
       this.$http.post(api).then((response) => {
         console.log('結帳', response);
         if (response.data.success) {
           vm.getOrder();
         }
-        vm.$store.dispatch('updateLoading', false);
+        vm.$store.dispatch('updateLoading', false, { root: true });
       });
     },
   },
