@@ -15,18 +15,6 @@
   }
 }
 
-// .img-new-1{
-//   background-image: url(https://upload.cc/i1/2019/03/17/liFDZo.jpg);
-// }
-// .img-new-2{
-//   background-image: url(https://upload.cc/i1/2019/03/17/lNSOv1.jpg);  
-// }
-// .img-new-3{
-//   background-image: url(https://upload.cc/i1/2019/03/17/0XZVpz.jpg);  
-// }
-// .img-new-4{
-//   background-image: url(https://upload.cc/i1/2019/03/17/belWZ0.jpg);  
-// }
 .img-h{
   height: 360px;
 }
@@ -55,7 +43,7 @@
   opacity: 0;
   filter: alpha(opacity=0);
   -webkit-transition: all 0.1s ease-out 0.5s;
-  transition: all 0.5s ease-out 0.5s;
+  transition: all 0.1s ease-out 0.5s;
 }
 
 .img-hovereffect:hover .overlay {
@@ -83,8 +71,8 @@
   transform: translateY(-200px);
   color: $basic;
   border: 1px solid $lighter;
-  -webkit-transition: all ease-in-out 0.5s;
-  transition: all ease-in-out 0.5s;
+  -webkit-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
 }
 
 .img-hovereffect .product-title:hover {
@@ -98,8 +86,8 @@
   box-shadow: 0 0 5px $lighter;
   color: $basic;
   border: 1px solid $lighter;
-  -webkit-transition-delay: 0.5s;
-  transition-delay: 0.5s;
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
 }
 
 // 圖片zoom 效果
@@ -107,8 +95,9 @@
   overflow:hidden;
 }
 .card-hovereffect img {
-  -webkit-transition:all .5s linear;
-  transition:all .5s linear;
+  display: block;
+  -webkit-transition:all .4s linear;
+  transition:all .4s linear;
 }
 .card-hovereffect:hover img {
   -ms-transform:scale(1.2);

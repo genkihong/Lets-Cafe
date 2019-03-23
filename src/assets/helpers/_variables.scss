@@ -45,9 +45,11 @@ $green:   #28a745 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 // 自訂
-$lighter: #EAF0ED; 
+$basic:     #007bff;
+$lighter:   #EAF0ED; 
 $hexschool: #00cc99;
-$main:    #424242;
+$main:      #424242;
+$facebook:  #3b5998;
 
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -65,7 +67,13 @@ $colors: map-merge(
     "cyan":       $cyan,
     "white":      $white,
     "gray":       $gray-600,
-    "gray-dark":  $gray-800
+    "gray-dark":  $gray-800,
+    // 自訂
+    "basic":      $basic,
+    "lighter":    $lighter,
+    "hexschool":  $hexschool,
+    "main":       $main,
+    "facebook":   $facebook,
   ),
   $colors
 );
@@ -77,12 +85,13 @@ $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
-// 自訂
 $dark:          $gray-800 !default;
+// 自訂
 $basic:         $blue;
 $lighter:       $lighter !default;
 $hexschool:     $hexschool;
 $main:          $main;
+$facebook:      $facebook;
 
 
 $theme-colors: () !default;
@@ -102,6 +111,7 @@ $theme-colors: map-merge(
     "lighter":    $lighter,
     "hexschool":  $hexschool,
     "main":       $main,
+    "facebook":   $facebook,
     
   ),
   $theme-colors
@@ -702,7 +712,7 @@ $zindex-tooltip:                    1070 !default;
 
 // Navs
 
-$nav-link-padding-y:                .5rem !default;
+$nav-link-padding-y:                1rem;//.5rem !default;
 $nav-link-padding-x:                1rem !default;
 $nav-link-disabled-color:           $gray-600 !default;
 
@@ -1018,16 +1028,16 @@ $list-group-border-radius:          $border-radius !default;
 $list-group-item-padding-y:         .75rem !default;
 $list-group-item-padding-x:         1.25rem !default;
 
-$list-group-hover-bg:               $hexschool;//$gray-100 !default;
+$list-group-hover-bg:               $lighter;//$gray-100 !default;
 $list-group-active-color:           $component-active-color !default;
-$list-group-active-bg:              $hexschool;//$component-active-bg !default;
-$list-group-active-border-color:    $list-group-active-bg !default;
+$list-group-active-bg:              $main;//$component-active-bg !default;
+$list-group-active-border-color:    $lighter;//$list-group-active-bg !default;
 
 $list-group-disabled-color:         $gray-600 !default;
 $list-group-disabled-bg:            $list-group-bg !default;
 
 $list-group-action-color:           $gray-700 !default;
-$list-group-action-hover-color:     white;//$list-group-action-color !default;
+$list-group-action-hover-color:     $list-group-action-color !default;
 
 $list-group-action-active-color:    $body-color !default;
 $list-group-action-active-bg:       $gray-200 !default;

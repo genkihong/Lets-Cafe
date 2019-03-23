@@ -1,50 +1,57 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-Vue.config.productionTip = false;
-
 import Vue from 'vue';
-import axios from 'axios';        // 載入主要 axios AJAX 套件
-import VueAxios from 'vue-axios'; // 將 axios 轉為 Vue 的套件
-import Loading from 'vue-loading-overlay'; // loading 效果
+import Vuex from 'vuex'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import Loading from 'vue-loading-overlay';
 import VeeValidate from 'vee-validate';
 import zh_TW from 'vee-validate/dist/locale/zh_TW';
+// import VueI18n from 'vue-i18n';
 
 import 'vue-loading-overlay/dist/vue-loading.css';
-import 'bootstrap'; // bootstrap js
+import 'bootstrap';
 
-import Alert from '@/components/backend/AlertMessage';
-import Pagination from '@/components/backend/Pagination';
+import Alert from '@/components/AlertMessage';
+import Pagination from '@/components/Pagination';
 
-import App from './App';       // 載入 App.vue  
-import router from './router'; // 載入 router/index.js
+import App from './App.vue';
+import router from './router'
+import store from './store';
 import './bus';
 import currencyFilter from './filters/currency';
 import dateFilter from './filters/date';
 
-// 全域啟用 component
-Vue.use(VueAxios, axios); // 啟用 axios 套件
-Vue.use(VeeValidate);     // 啟用驗證套件
-// Vue.use(VeeValidate, {
-//   events: 'input|blur',
-// });
+Vue.config.productionTip = false;
+
+Vue.use(Vuex);
+Vue.use(VueAxios, axios);
+Vue.use(VeeValidate);
+// Vue.use(VueI18n);
+
 VeeValidate.Validator.localize('zh_TW', zh_TW);
+// const i18n = new VueI18n({
+//   locale: 'zhTW'
+// });
+// Vue.use(VeeValidate, {
+//   i18n,
+//   dictionary: {
+//     zhTW
+//   }
+// });
 
 Vue.component('Alert', Alert);
+Vue.component('Loading', Loading);
 Vue.component('Pagination', Pagination);
-Vue.component('Loading', Loading); 
 
 Vue.filter('currency', currencyFilter);
 Vue.filter('date', dateFilter);
 
-axios.defaults.withCredentials = true;
-
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  components: { App }, // App.vue
-  template: '<App/>',
-  router,              // router: router 縮寫
-});
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app');
+
+
 // 導航守衛
 router.beforeEach((to, from, next) => {
   console.log('to',to,'from',from,'next',next);
@@ -58,11 +65,11 @@ router.beforeEach((to, from, next) => {
         next();
       } else {  // 登入失敗就回到 login 頁面
         next({
-          path: '/login',
-        });
+          path: '/login'
+        })
       }
-    });
+    })
   } else {
-    next();
+    next()
   }
 });
