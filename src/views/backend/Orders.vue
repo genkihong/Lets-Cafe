@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Loading :active.sync="isLoading"></Loading>
     <table class="table mt-4">
       <thead>
         <tr>
@@ -46,20 +45,19 @@ export default {
       orders: {},
       isNew: false,
       pagination: {},
-      isLoading: false,
     };
   },
   methods: {
     getOrders(page = 1) { // 取得所有訂單內容
       const vm = this;
       const url = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/orders?page=${page}`;
-      vm.isLoading = true;
+      vm.$store.dispatch('updateLoading', true, { root: true });
       
       this.$http.get(url, vm.tempProduct).then((response) => {
         console.log('所有訂單內容', response);
         vm.orders = response.data.orders;
         vm.pagination = response.data.pagination;
-        vm.isLoading = false;
+        vm.$store.dispatch('updateLoading', false, { root: true });
       });
     },
   },

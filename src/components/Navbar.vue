@@ -16,7 +16,7 @@ export default {
   methods: {
     signout() {
       const vm = this;
-      const api =`${process.env.API_PATH}/logout`;
+      const api =`${process.env.VUE_APP_API_PATH}/logout`;
 
       this.$http.post(api).then((response) => {
         console.log('登出',response.data);

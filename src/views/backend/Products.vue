@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- loading 動畫效果 -->
-    <Loading :active.sync="isLoading"></Loading>
-
     <div class="text-right mt-4">
       <button class="btn btn-primary text-white" @click="openModal(true)">建立新商品</button>
     </div>
@@ -38,10 +35,8 @@
         </tr>
       </tbody>       
     </table>
-
     <!-- 分頁 -->
     <Pagination :Pages="pagination" @getPage="getProducts"></Pagination>
-
     <!-- 新增/修改產品 Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
@@ -122,7 +117,6 @@
         </div>
       </div>
     </div>
-
     <!--刪除產品 Modal-->
     <DeleteModal :Product="tempProduct" @expunge="delProduct"></DeleteModal>
   </div>
@@ -130,7 +124,7 @@
 
 <script>
 import $ from 'jquery';
-import DeleteModal from '../../components/DeleteModal';
+import DeleteModal from '@/components/DeleteModal';
 export default {
   data() {
     return {
@@ -140,7 +134,6 @@ export default {
       },   
       tempProduct: {},  // 新增/修改商品
       isNew: false,     // true: 新增, false: 修改
-      isLoading: false, // true: start loading 動畫, false: stop loading 動畫
       status: {
         fileUploading: false,  // true: show spin icon, false: hide spin icon     
       },
@@ -151,16 +144,15 @@ export default {
   },
   methods: {
     getProducts(page = 1) {   // 取得所有商品
-      // const api = 'https://vue-course-api.hexschool.io/api/charles/products';
       const vm = this;
-      const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/admin/products?page=${page}`;
-      vm.isLoading = true;
-      
+      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`;
+      vm.$store.dispatch('updateLoading', true, { root: true });
+      console.log(api);
       this.$http.get(api).then((response) => {
         console.log('取得商品列表', response.data);
         vm.products = response.data.products;     // 取得商品資料
         vm.pagination = response.data.pagination; // 取得分頁資料
-        vm.isLoading = false;
+        vm.$store.dispatch('updateLoading', false, { root: true });
       });
     },
     openModal(isNew, item) {  // 新增 & 修改商品 Modal

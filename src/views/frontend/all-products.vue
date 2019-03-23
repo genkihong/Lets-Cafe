@@ -106,14 +106,14 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      //products: [],   
-      //categories: [], 
-      //newProduct: [], 
-      //pagination: {},
       product: {},    // 單一商品
       searchText: '',
       currentPage: 0,
       pages: 0,      
+      //products: [],   
+      //categories: [], 
+      //newProduct: [], 
+      //pagination: {},
       // status: {
       //   loadingItem: '', // 單一商品 spin icon
       // }
@@ -169,7 +169,7 @@ export default {
       // const vm = this;
       // const api =`${process.env.API_PATH}/api/${process.env.CUSTOM_PATH}/products?page=${page}`;
       // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/products/all`;
-      // vm.$store.state.isLoading = true;
+      
       // vm.$store.dispatch('updateLoading', true);
       // this.$http.get(api).then((response) => {
       //   console.log('user 產品列表', response);
@@ -199,15 +199,7 @@ export default {
       //   vm.$bus.$emit('update-cart'); // 更新購物車數量圖示
       //   vm.status.loadingItem = '';
       // });
-    },
-    // getProductList() {
-    //   const vm = this;
-    //   const list = new Set();
-    //   vm.products.forEach((value) => {
-    //     list.add(value.category);
-    //   });
-    //   vm.categories = Array.from(list);
-    // },    
+    },  
   },
   created() {
     this.getProducts(); // 商品列表

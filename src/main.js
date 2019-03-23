@@ -20,6 +20,7 @@ import './bus';
 import currencyFilter from './filters/currency';
 import dateFilter from './filters/date';
 
+axios.defaults.withCredentials = true;
 Vue.config.productionTip = false;
 
 Vue.use(Vuex);
@@ -58,7 +59,7 @@ router.beforeEach((to, from, next) => {
   
   if(to.meta.requiresAuth) {  // 前往頁面如果有 meta.requiresAuth 就驗證，沒有就放行 
     // alert('這裡需要驗證');
-    const api =`${process.env.API_PATH}/api/user/check`;
+    const api =`${process.env.VUE_APP_API_PATH}/api/user/check`;
     axios.post(api).then((response) => {
       console.log('驗證登入',response.data);
       if (response.data.success) { // 成功登入就放行

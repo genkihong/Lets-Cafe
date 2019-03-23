@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Navbar/>
+    <Loading :active.sync="isLoading"></Loading>
     <Alert/>
+    <Navbar/>
     <div class="container-fluid">
       <div class="row">
         <Sidebar/>
@@ -14,11 +15,16 @@
 </template>
 
 <script>
-import Navbar from '../../components/Navbar';
-import Sidebar from '../../components/Sidebar';
-import Alert from '../../components/AlertMessage';
+import Navbar from '@/components/Navbar';
+import Sidebar from '@/components/Sidebar';
+import Alert from '@/components/AlertMessage';
 
 export default {
+  computed: {    
+    isLoading() { // 取得 isLoading 值
+      return this.$store.state.isLoading;
+    },
+  },
   components: {
     Alert,  // Alert: Alert 縮寫
     Navbar,
