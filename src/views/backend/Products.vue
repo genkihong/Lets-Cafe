@@ -130,7 +130,7 @@
 
 <script>
 import $ from 'jquery';
-import DeleteModal from '../../components/backend/DeleteModal';
+import DeleteModal from '../../components/DeleteModal';
 export default {
   data() {
     return {

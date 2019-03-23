@@ -1,8 +1,6 @@
 <template>
-  <div class="mt-5">
-    <Loading :active.sync="isLoading"></Loading>
-    
-    <div class="container" v-if="myCart.carts.length > 0">
+  <div>
+    <div class="container" v-if="myCart.carts.length">
       <!-- breadcrumb -->
       <div class="row justify-content-center">
         <div class="col-md-10">
@@ -57,10 +55,10 @@
                     </button>
                   </td>
                   <td class="align-middle d-none d-sm-table-cell">
-                    <div class="img-thumbnail bg-cover" style="width: 160px; height: 90px;" 
+                    <!-- <div class="img-thumbnail bg-cover" style="width: 160px; height: 90px;" 
                       :style="{backgroundImage: `url(${cart.product.imageUrl})`}">
-                    </div>
-                    <!-- <img :src="cart.product.imageUrl"  class="img-thumbnail" alt=""> -->
+                    </div> -->
+                    <img :src="cart.product.imageUrl"  class="img-thumbnail" width="160" alt="">
                   </td>
                   <td class="align-middle">
                     {{ cart.product.title }}
@@ -104,7 +102,7 @@
       </div>   
     </div>
     <!-- 無購物車清單 -->
-    <div class="container" v-if="myCart.carts.length === 0">
+    <div class="container" v-if="!myCart.carts.length">
       <!-- breadcrumb -->
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -144,7 +142,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
-            <button type="submit" class="btn btn-outline-danger btn-sm" @click="removeCart">確認刪除</button>
+            <button type="submit" class="btn btn-outline-danger btn-sm" @click="removeCart(tempCart.id)">確認刪除</button>
           </div>
         </div>
       </div>
@@ -154,49 +152,40 @@
 
 <script>
 import $ from 'jquery';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data() {
     return {
-      myCart: {      // 購物車
-        carts: [
-        //   {
-        //     coupon: {},
-        //     id: '',
-        //     product: {},
-        //     product_id: '',
-        //     qty: '',
-        //     total: 0,
-        //     final_total: 0,
-        //   }
-        ],
-        // total: 0,
-        // final_total: 0,
-      },
-      isLoading: false,
+      coupon_code: '', // 優惠卷
       tempCart: {},
-      coupon_code: '',// 優惠卷    
     }
   },
-  
+  computed: {
+    ...mapGetters ('cartModule', ['myCart'])
+    // myCart() {
+    //   return this.$store.state.myCart;
+    // }
+  },
   methods: {
-    getCart() {  // 取得購物車內容
-      const vm = this;
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
-      vm.isLoading = true;
+    ...mapActions ('cartModule', ['getCart']),
+    // getCart() {  // 取得購物車內容
+    //   this.$store.dispatch('getCart');
+      // const vm = this;
+      // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      // vm.$store.dispatch('updateLoading', true);
       
-      this.$http.get(api).then((response) => {
-        console.log('cart 購物車', response);
-        vm.myCart = response.data.data; 
-        vm.isLoading = false;
-      });
-    },
+      // this.$http.get(api).then((response) => {
+      //   console.log('cart 購物車', response);
+      //   vm.myCart = response.data.data; 
+      //   vm.$store.dispatch('updateLoading', false);
+      // });
+    // },
     removeModal(cart) {
       const vm = this;
       vm.tempCart = Object.assign({}, cart);
       console.log('tempCart',vm.tempCart);
-      // $('#removeModal').modal('show');
-
+      
       $('#removeModal').on('show.bs.modal', function (event) { // Modal title:產品名稱
         var btn = $(event.relatedTarget);
         var title = btn.data('title');
@@ -205,38 +194,40 @@ export default {
         modal.find('.modal-title').text(title);
       });
     },
-    removeCart() { // 刪除購物車
-      const vm = this;
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${vm.tempCart.id}`;
-      vm.isLoading = true;
+    removeCart(id) { // 刪除購物車
+      this.$store.dispatch('cartModule/removeCart', id);
+      // const vm = this;
+      // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${vm.tempCart.id}`;
+      // vm.$store.dispatch('updateLoading', true);
       
-      this.$http.delete(api).then((response) => {
-        console.log('刪除購物車', response);
-          $('#removeModal').modal('hide');
-          vm.$bus.$emit('push-msg', response.data.message, 'success');
-          vm.$bus.$emit('update-cart');
-          vm.getCart();
-          vm.isLoading = false;               
-      });
+      // this.$http.delete(api).then((response) => {
+      //   console.log('刪除購物車', response);
+      //     $('#removeModal').modal('hide');
+      //     vm.$bus.$emit('push-msg', response.data.message, 'success');
+      //     vm.$bus.$emit('update-cart');
+      //     vm.getCart();
+      //     vm.$store.dispatch('updateLoading', false);               
+      // });
     },
     addCouponCode() { // 使用優惠券
+      //this.$store.dispatch('cartModule/addCouponCode', coupon_code);
       const vm = this;
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`;
       const coupon = {
         code: vm.coupon_code,
       }
-      vm.isLoading = true;
+      vm.$store.dispatch('updateLoading', true);
       
       this.$http.post(api, {data: coupon}).then((response) => {
         console.log('優惠卷', response);
         if (response.data.success) {
           vm.$bus.$emit('push-msg', response.data.message, 'success');
           vm.getCart();
-          vm.isLoading = false;
+          vm.$store.dispatch('updateLoading', false);
         } else {
           vm.$bus.$emit('push-msg', response.data.message, 'danger');
           vm.getCart();
-          vm.isLoading = false;
+          vm.$store.dispatch('updateLoading', false);
         }
       });
     },    

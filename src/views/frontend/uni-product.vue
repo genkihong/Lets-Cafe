@@ -1,7 +1,5 @@
 <template>
   <div class="mt-5">
-    <Loading :active.sync="isLoading"></Loading>
-
     <div class="container">
       <!-- breadcrumb -->
       <div class="row">
@@ -22,7 +20,7 @@
             <img class="img-thumbnail bg-cover" :src="product.imageUrl" alt="Let's cafe">
           </div> 
           <button type="button" class="btn btn-lighter btn-block btn-lg card-btn" @click="addtoCart(product.id, product.num)">
-            <i class="fas fa-circle-notch fa-spin" v-if="status.loadingItem === product.id"></i>
+            <i class="fas fa-spinner fa-pulse" v-if="loadingItem === product.id"></i>
             加到購物車
           </button>             
         </div>   
@@ -51,45 +49,54 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
-      product: {},    // 單一商品
-      productId: '',  // 單一產品id
-      isLoading: false,  // true: start loading 動畫, false: stop loading 動畫
+      // product: {},    // 單一商品
+      productId: '',  // 單一產品id      
       status: {
         loadingItem: '', // 單一商品 spin icon
       }
     }
   },
+  computed: {
+    loadingItem() {
+      return this.$store.state.loadingItem;
+    },
+    ...mapGetters('productsModule', ['product'])
+  },
   methods: {
     getProduct(id) {  // 單一商品(查看更多)
-      const vm = this;
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
-      vm.isLoading = true;
+      this.$store.dispatch('productsModule/getProduct', id); // 有參數只能用 dispatch
+      // const vm = this;
+      // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
+      // vm.$store.dispatch('updateLoading', true);
       
-      this.$http.get(api).then((response) => {
-        console.log('單一產品', response);
-        vm.product = response.data.product;    
-        vm.isLoading = false;
-        vm.product.num = 1; // 將數量預設為 1
-      });
+      // this.$http.get(api).then((response) => {
+      //   console.log('單一產品', response);
+      //   vm.product = response.data.product;    
+      //   vm.product.num = 1; // 將數量預設為 1
+      //   vm.$store.dispatch('updateLoading', false);
+      // });
     },
     addtoCart(id, qty = 1) {  // 加入購物車
-      const vm = this;
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
-      vm.status.loadingItem = id;
-      const cart = {
-        product_id: id,
-        qty,
-      };
-      this.$http.post(api, {data: cart}).then((response) => {
-        console.log('加入購物車', response);
-        vm.$bus.$emit('push-msg', response.data.message, 'success');
-        vm.$bus.$emit('update-cart'); // 更新購物車數量圖示
-        // getCart();
-        vm.status.loadingItem = '';
-      });
+      this.$store.dispatch('cartModule/addtoCart', { id, qty }); // 有參數只能用 dispatch
+      // const vm = this;
+      // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      // vm.status.loadingItem = id;
+      // const cart = {
+      //   product_id: id,
+      //   qty,
+      // };
+      // this.$http.post(api, {data: cart}).then((response) => {
+      //   console.log('加入購物車', response);
+      //   vm.$bus.$emit('push-msg', response.data.message, 'success');
+      //   vm.$bus.$emit('update-cart'); // 更新購物車數量圖示
+      //   // getCart();
+      //   vm.status.loadingItem = '';
+      // });
     },
     // getCart() {  // 取得購物車內容
     //   const vm = this;

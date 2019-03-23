@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky-top">  
+  <div class="sticky-top shadow-sm">  
     <!-- nav bar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container">        
@@ -15,7 +15,7 @@
 
         <!-- cart-icon -->
         <router-link class="cart-icon text-lighter order-md-1" to="/cart">
-          <span class="badge badge-pill badge-danger cart-badge" v-if="myCart.carts.length > 0">
+          <span class="badge badge-pill badge-danger cart-badge" v-if="myCart.carts.length">
             {{myCart.carts.length}}
           </span>
           <i class="material-icons md-32 align-middle">shopping_cart</i>
@@ -38,41 +38,32 @@
 export default {
   data() {
     return {
-      myCart:{
-        carts: [
-        //   {
-        //     coupon: {},
-        //     id: '',
-        //     product: {},
-        //     product_id: '',
-        //     qty: '',
-        //     total: 0,
-        //     final_total: 0,
-        //   }
-        ],
-        // total: 0,
-        // final_total: 0,
-      },
       isActive: '',
+    }
+  },
+  computed: {
+    myCart() {
+      return this.$store.state.myCart;
     }
   },
   methods: {
     getCart() {  // 取得購物車內容
-      const vm = this;
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      this.$store.dispatch('getCart');
+      // const vm = this;
+      // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
             
-      this.$http.get(api).then((response) => {
-        console.log('navbar 購物車', response);
-        vm.myCart = response.data.data; 
-      });
+      // this.$http.get(api).then((response) => {
+      //   console.log('navbar 購物車', response);
+      //   vm.myCart = response.data.data; 
+      // });
     },
   },
   created() {
     const vm = this;
     vm.getCart();
-    vm.$bus.$on('update-cart', () => {
-      vm.getCart();
-    });    
+    // vm.$bus.$on('update-cart', () => {
+    //   vm.getCart();
+    // });    
   },
 }
 </script>
