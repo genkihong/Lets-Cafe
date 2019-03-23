@@ -19,7 +19,7 @@ export default {
       };
       axios.post(api, {data: cart}).then((response) => {
         console.log('加入購物車', response);
-        context.dispatch('getCart');  // 執行 actions 內的 getCart，要用 context.dispatch
+        context.dispatch('getCart');
         new Vue().$bus.$emit('push-msg', response.data.message, 'success');
         context.commit('LOADINGITEM', '', { root: true });
       });
@@ -34,7 +34,7 @@ export default {
         context.commit('LOADING', false, { root: true });
       });
     },
-    removeCart(context, id) { // 刪除購物車
+    removeCart(context, id) {
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${id}`;
       context.commit('LOADING', true, { root: true });
       
@@ -42,7 +42,7 @@ export default {
         console.log('刪除購物車', response);
           $('#removeModal').modal('hide');
           new Vue().$bus.$emit('push-msg', response.data.message, 'success');
-          context.dispatch('getCart'); // 執行 actions 內的 getCart，要用 context.dispatch
+          context.dispatch('getCart');
           context.commit('LOADING', false, { root: true });
       });
     },    

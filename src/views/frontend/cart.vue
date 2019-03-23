@@ -55,9 +55,6 @@
                     </button>
                   </td>
                   <td class="align-middle d-none d-sm-table-cell">
-                    <!-- <div class="img-thumbnail bg-cover" style="width: 160px; height: 90px;" 
-                      :style="{backgroundImage: `url(${cart.product.imageUrl})`}">
-                    </div> -->
                     <img :src="cart.product.imageUrl"  class="img-thumbnail" width="160" alt="">
                   </td>
                   <td class="align-middle">
@@ -157,36 +154,21 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      coupon_code: '', // 優惠卷
+      coupon_code: '',
       tempCart: {},
     }
   },
   computed: {
     ...mapGetters ('cartModule', ['myCart'])
-    // myCart() {
-    //   return this.$store.state.myCart;
-    // }
   },
   methods: {
     ...mapActions ('cartModule', ['getCart']),
-    // getCart() {  // 取得購物車內容
-    //   this.$store.dispatch('getCart');
-      // const vm = this;
-      // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
-      // vm.$store.dispatch('updateLoading', true);
-      
-      // this.$http.get(api).then((response) => {
-      //   console.log('cart 購物車', response);
-      //   vm.myCart = response.data.data; 
-      //   vm.$store.dispatch('updateLoading', false);
-      // });
-    // },
     removeModal(cart) {
       const vm = this;
       vm.tempCart = Object.assign({}, cart);
       console.log('tempCart',vm.tempCart);
       
-      $('#removeModal').on('show.bs.modal', function (event) { // Modal title:產品名稱
+      $('#removeModal').on('show.bs.modal', function (event) {
         var btn = $(event.relatedTarget);
         var title = btn.data('title');
         var modal = $(this);
@@ -194,23 +176,10 @@ export default {
         modal.find('.modal-title').text(title);
       });
     },
-    removeCart(id) { // 刪除購物車
+    removeCart(id) {
       this.$store.dispatch('cartModule/removeCart', id);
-      // const vm = this;
-      // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${vm.tempCart.id}`;
-      // vm.$store.dispatch('updateLoading', true);
-      
-      // this.$http.delete(api).then((response) => {
-      //   console.log('刪除購物車', response);
-      //     $('#removeModal').modal('hide');
-      //     vm.$bus.$emit('push-msg', response.data.message, 'success');
-      //     vm.$bus.$emit('update-cart');
-      //     vm.getCart();
-      //     vm.$store.dispatch('updateLoading', false);               
-      // });
     },
-    addCouponCode() { // 使用優惠券
-      //this.$store.dispatch('cartModule/addCouponCode', coupon_code);
+    addCouponCode() {
       const vm = this;
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`;
       const coupon = {

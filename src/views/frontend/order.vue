@@ -73,7 +73,7 @@
 export default {
   data() {
     return {
-      form: {         // 訂單
+      form: {
         user: {
           name: '',
           email: '',
@@ -85,23 +85,23 @@ export default {
     }
   },
   methods:{
-    createOrder() { // 建立訂單
+    createOrder() {
       const vm = this;
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/order`;
       const order = vm.form;
-      vm.$store.state.isLoading = true;
+      vm.$store.dispatch('updateLoading', true, { root: true });
       this.$validator.validate().then((result) => {
         if (result) {
           this.$http.post(api, {data: order}).then((response) => {
             console.log('訂單已建立', response);
             if (response.data.success) {
               vm.$bus.$emit('update-cart');
-              vm.$router.push(`/checkout/${response.data.orderId}`); // 訂單建立成功後, 前往結帳頁面
+              vm.$router.push(`/checkout/${response.data.orderId}`);
             }
-            vm.$store.state.isLoading = false;
+            vm.$store.dispatch('updateLoading', false, { root: true });
           });
         } else {
-          vm.$store.state.isLoading = false;
+          vm.$store.dispatch('updateLoading', false, { root: true });
           console.log('欄位不完整');
         }
       });      

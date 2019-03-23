@@ -21,12 +21,12 @@ import Alert from '@/components/AlertMessage';
 
 export default {
   computed: {    
-    isLoading() { // 取得 isLoading 值
+    isLoading() {
       return this.$store.state.isLoading;
     },
   },
   components: {
-    Alert,  // Alert: Alert 縮寫
+    Alert,
     Navbar,
     Sidebar,
   },

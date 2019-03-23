@@ -43,7 +43,6 @@
         <div class="carousel-inner">
           <div class="carousel-item header-carousel-item bg-cover active"
           :style="{backgroundImage:`url(${imgUrl}/images/coffee-1.jpg)`}" data-interval="3000">
-            <!-- <img class="bg-cover" src="@/assets/images/coffee-1.jpg" height="600" alt=""> -->
             <div class="carousel-caption d-none d-md-block">
               <h2>Let's drink a coffee</h2>
               <p class="h5">品味豐富的人生來自品嚐一杯好咖啡</p>
@@ -91,7 +90,6 @@
             <div class="text-right mb-3">
               <a class="text-decoration-none" href="#">
                 <i class="text-facebook fab fa-facebook-square fa-2x"></i>
-                <!-- <img src="/static/images/icon_fb.png" alt="FB"> -->
               </a>    
             </div>            
             <p class="text-right">&copy; Copright 2019 All Rights Reserved</p>            
@@ -113,7 +111,7 @@ export default {
     }
   },
   computed: {    
-    isLoading() { // 取得 isLoading 值
+    isLoading() {
       return this.$store.state.isLoading;
     },
     ...mapGetters ('cartModule', ['myCart'])

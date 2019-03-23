@@ -32,8 +32,7 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :Pages="pagination" @getPage="getOrders"></Pagination>
-    
+    <Pagination :Pages="pagination" @getPage="getOrders"></Pagination>    
   </div>
 </template>
 
@@ -48,7 +47,7 @@ export default {
     };
   },
   methods: {
-    getOrders(page = 1) { // 取得所有訂單內容
+    getOrders(page = 1) {
       const vm = this;
       const url = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/orders?page=${page}`;
       vm.$store.dispatch('updateLoading', true, { root: true });
@@ -62,7 +61,7 @@ export default {
     },
   },
   computed: {
-    sortOrder() { // 訂單排序
+    sortOrder() {
       const vm = this;
       let newOrder = [];
       if (vm.orders.length) {

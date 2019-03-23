@@ -9,7 +9,6 @@
       <div class="carousel-inner">
         <div class="carousel-item header-carousel-item bg-cover active"
         style="background-image: url(/images/coffee-1.jpg)" data-interval="3000">
-          <!-- <img class="bg-cover" src="@/assets/images/coffee-1.jpg" height="600" alt=""> -->
           <div class="carousel-caption d-none d-md-block">
             <h2>Let's drink a coffee</h2>
             <p class="h5">品味豐富的人生來自品嚐一杯好咖啡</p>

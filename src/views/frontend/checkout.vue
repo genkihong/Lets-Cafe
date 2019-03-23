@@ -93,14 +93,14 @@
 export default {
   data() {
     return {
-      orderId: '', // 訂單 id
-      order: {     // 訂單內容 
+      orderId: '',
+      order: {
         user: {},
       },
     }
   },
   methods: {
-    getOrder() { // 取得訂單內容
+    getOrder() {
       const vm = this;
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/order/${vm.orderId}`;
       vm.$store.dispatch('updateLoading', true);
@@ -111,7 +111,7 @@ export default {
         vm.$store.dispatch('updateLoading', false);
       });
     },
-    payOrder() { // 結帳
+    payOrder() {
       const vm = this;
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/pay/${vm.orderId}`;
       vm.$store.dispatch('updateLoading', true);
@@ -126,7 +126,7 @@ export default {
     },
   },
   created() {
-    this.orderId = this.$route.params.orderId; // 取得訂單 Id
+    this.orderId = this.$route.params.orderId;
     console.log(this.orderId);
     this.getOrder();
   }

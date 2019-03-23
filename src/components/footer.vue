@@ -14,7 +14,6 @@
             <div class="text-right mb-3">
               <a class="text-decoration-none" href="#">
                 <i class="text-facebook fab fa-facebook-square fa-2x"></i>
-                <!-- <img src="/static/images/icon_fb.png" alt="FB"> -->
               </a>    
             </div>            
             <p class="text-right">&copy; Copright 2019 All Rights Reserved</p>            

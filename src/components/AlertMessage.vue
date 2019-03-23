@@ -27,7 +27,7 @@ export default {
         status,
         timestamp,
       });
-      this.removeMessageWithTiming(timestamp); // 自動移除此 alert
+      this.removeMessageWithTiming(timestamp);
     },
     removeMessage(num) {
       this.messages.splice(num, 1);
@@ -40,19 +40,14 @@ export default {
             vm.messages.splice(i, 1);
           }
         });
-      }, 5000); // 5秒後才執行
+      }, 5000);
     },
   },
   created() {
     const vm = this;
-
-    // 自定義名稱 'messsage:push'
-    // message: 傳入參數
-    // status: 樣式，預設值為 warning
     vm.$bus.$on('push-msg', (message, status = 'warning') => {
       vm.updateMessage(message, status);
     });
-    // vm.$bus.$emit('message:push');
   },
 };
 </script>
