@@ -22,8 +22,15 @@ export default new Vuex.Store({
       state.isLoading = status;
     },
     LOADINGITEM(state, id) {
-      console.log(id);
       state.loadingItem = id;
+    },
+  },
+  getters: {
+    isLoading(state) {
+      return state.isLoading;
+    },
+    loadingItem(state) {
+      return state.loadingItem;
     },
   },
   modules: {

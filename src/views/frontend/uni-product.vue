@@ -19,7 +19,7 @@
           <div class="card-hovereffect mb-3">
             <img class="img-thumbnail bg-cover" :src="product.imageUrl" alt="Let's cafe">
           </div> 
-          <button type="button" class="btn btn-lighter btn-block btn-lg card-btn" @click="addtoCart(product.id, product.num)">
+          <button type="button" class="btn btn-lighter btn-block btn-lg card-btn" @click="addtoCart(product.id, quantity)">
             <i class="fas fa-spinner fa-pulse" v-if="loadingItem === product.id"></i>
             加到購物車
           </button>             
@@ -35,11 +35,11 @@
             <del class="h5 font-italic" v-if="product.price">原價 {{ product.origin_price | currency }}</del>
             <div class="h3 text-danger" v-if="product.price">特價 {{ product.price | currency }}</div>
           </div>     
-          <select name="" class="form-control mb-3" v-model="product.num">
+          <select name="" class="form-control mb-3" v-model="quantity">
             <option :value="num" v-for="num in 10" :key="num">選購 {{ num }} {{ product.unit }}</option>
           </select>
           <div class="text-right text-nowrap">
-            小計 <strong>{{ product.num * product.price | currency }}</strong>
+            小計 <strong>{{ quantity * product.price | currency }}</strong>
           </div>         
         </div>
       </div>
@@ -54,15 +54,11 @@ export default {
   data() {
     return {
       productId: '', 
-      status: {
-        loadingItem: '',
-      }
+      quantity: 1,
     }
   },
   computed: {
-    loadingItem() {
-      return this.$store.state.loadingItem;
-    },
+    ...mapGetters(['loadingItem']),
     ...mapGetters('productsModule', ['product'])
   },
   methods: {

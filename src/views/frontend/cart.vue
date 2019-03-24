@@ -87,7 +87,7 @@
           <div class="input-group input-group-sm">
             <input type="text" class="form-control" placeholder="請輸入優惠碼 coffee" v-model="coupon_code">
             <div class="input-group-append">
-              <button class="btn btn-outline-light" type="button" @click="addCouponCode">
+              <button class="btn btn-outline-light" type="button" @click="addCouponCode(coupon_code)">
                 套用優惠碼
               </button>
             </div>
@@ -179,26 +179,8 @@ export default {
     removeCart(id) {
       this.$store.dispatch('cartModule/removeCart', id);
     },
-    addCouponCode() {
-      const vm = this;
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`;
-      const coupon = {
-        code: vm.coupon_code,
-      }
-      vm.$store.dispatch('updateLoading', true);
-      
-      this.$http.post(api, {data: coupon}).then((response) => {
-        console.log('優惠卷', response);
-        if (response.data.success) {
-          vm.$bus.$emit('push-msg', response.data.message, 'success');
-          vm.getCart();
-          vm.$store.dispatch('updateLoading', false);
-        } else {
-          vm.$bus.$emit('push-msg', response.data.message, 'danger');
-          vm.getCart();
-          vm.$store.dispatch('updateLoading', false);
-        }
-      });
+    addCouponCode(coupon_code) {
+      this.$store.dispatch('cartModule/addCouponCode', coupon_code);
     },    
   },
   created() {

@@ -116,9 +116,7 @@ export default {
       console.log('分頁',newPage);
       return newPage;    
     },
-    loadingItem() {
-      return this.$store.state.loadingItem;
-    },
+    ...mapGetters(['loadingItem']),
     ...mapGetters('productsModule', ['products', 'categories', 'newProduct'])
   },
   methods: {

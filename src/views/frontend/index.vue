@@ -111,9 +111,7 @@ export default {
     }
   },
   computed: {    
-    isLoading() {
-      return this.$store.state.isLoading;
-    },
+    ...mapGetters(['isLoading']),
     ...mapGetters ('cartModule', ['myCart'])
   },
   methods: {
