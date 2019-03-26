@@ -55,6 +55,9 @@
                     </button>
                   </td>
                   <td class="align-middle d-none d-sm-table-cell">
+                    <!-- <div class="img-thumbnail bg-cover" style="width: 160px; height: 90px;" 
+                      :style="{backgroundImage: `url(${cart.product.imageUrl})`}">
+                    </div> -->
                     <img :src="cart.product.imageUrl"  class="img-thumbnail" width="160" alt="">
                   </td>
                   <td class="align-middle">
@@ -156,23 +159,22 @@ export default {
     return {
       coupon_code: '',
       tempCart: {},
-    }
+    };
   },
   computed: {
-    ...mapGetters ('cartModule', ['myCart'])
+    ...mapGetters ('cartModule', ['myCart']),
   },
   methods: {
     ...mapActions ('cartModule', ['getCart']),
+
     removeModal(cart) {
       const vm = this;
       vm.tempCart = Object.assign({}, cart);
-      console.log('tempCart',vm.tempCart);
       
       $('#removeModal').on('show.bs.modal', function (event) {
         var btn = $(event.relatedTarget);
         var title = btn.data('title');
         var modal = $(this);
-        console.log('show.bs.modal',title);
         modal.find('.modal-title').text(title);
       });
     },
@@ -185,6 +187,6 @@ export default {
   },
   created() {
     this.getCart();     
-  }
+  },
 }
 </script>

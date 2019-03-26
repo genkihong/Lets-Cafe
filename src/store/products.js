@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import axios from 'axios';
 
 export default {
@@ -6,15 +7,13 @@ export default {
     products: [],
     product: {},
     categories: [],
-    newProduct: [],   
+    newProduct: [],
   },
   actions: {
     getProducts(context) {
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/products/all`;
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/products/all`;
       context.commit('LOADING', true, { root: true });
-
       axios.get(api).then((response) => {
-        console.log('user 產品列表', response);
         context.commit('PRODUCTS', response.data.products);
         context.commit('CATEGORIES', response.data.products);
         context.commit('NEWPRODUCT', response.data.products);
@@ -22,24 +21,21 @@ export default {
       });
     },
     getProduct(context, id) {
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
       context.commit('LOADING', true, { root: true });
-
       axios.get(api).then((response) => {
-        console.log('查看更多', response); 
-        context.commit('PRODUCT', response.data.product);    
+        context.commit('PRODUCT', response.data.product);
         context.commit('LOADING', false, { root: true });
       });
-    },    
-  },  
-  mutations: {    
+    },
+  },
+  mutations: {
     PRODUCTS(state, payload) {
       state.products = payload;
     },
     PRODUCT(state, payload) {
       state.product = payload;
-      state.product.num = 1;
-    },    
+    },
     CATEGORIES(state, payload) {
       const list = new Set();
       payload.forEach((value) => {
@@ -48,14 +44,13 @@ export default {
       state.categories = Array.from(list);
     },
     NEWPRODUCT(state, payload) {
-      state.newProduct = payload.slice(5,9); 
-      console.log('熱銷咖啡',state.newProduct);
-    },    
-  }, 
+      state.newProduct = payload.slice(5, 9);
+    },
+  },
   getters: {
-    products: state => state.products,
+    products(state) { return state.products; },
     product: state => state.product,
     categories: state => state.categories,
-    newProduct: state => state.newProduct,    
-  } 
-}
+    newProduct: state => state.newProduct,
+  },
+};

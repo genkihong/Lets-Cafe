@@ -21,7 +21,7 @@ export default {
       this.$http.post(api).then((response) => {
         console.log('登出',response.data);
         if (response.data.success) {
-          vm.$router.push('/login');
+          vm.$router.push('/login');  // 登出成功就回到 login 頁面
         }
       });
     }

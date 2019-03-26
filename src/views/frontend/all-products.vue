@@ -6,6 +6,7 @@
         <div class="col-6 col-md-3" v-for="product in newProduct" :key="product.id">
           <div class="img-hovereffect">
             <div class="img-h img-fluid bg-cover" :style="{backgroundImage: `url(${product.imageUrl})`}"></div>
+            <!-- <img class="img-fluid bg-cover" src="product.imageUrl" alt=""> -->
             <div class="overlay">
               <router-link :to="{name:'UniProduct', params:{ id: product.id }}">
                 <h5 class="product-title">{{product.title}}</h5>
@@ -31,19 +32,20 @@
             </a>            
           </div>
         </div>        
-        <div class="col-md-9">          
+        <div class="col-md-9">
           <!-- Product list -->
           <div class="row mt-3 mt-md-0">
             <div class="col-md-6 mb-3" v-for="item in filterData[currentPage]" :key="item.id">
               <div class="card border-0 text-center shadow h-100">
                 <div class="card-hovereffect">
-                  <img class="img-thumbnail bg-cover" :src="item.imageUrl" alt="Let's cafe">                  
+                  <img class="img-thumbnail bg-cover" :src="item.imageUrl" alt="Let's cafe">
+                  <!-- <div class="bg-cover card-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div> -->
                 </div>
                 <!-- 查看單一產品 -->
                 <router-link class="btn btn-lighter btn-block btn-lg card-btn rounded-0" 
                   :to="{name:'UniProduct', params:{ id: item.id }}">
                   <h3 class="mb-0">{{ item.title }}</h3>
-                </router-link>                
+                </router-link> 
                 <div class="card-body">
                   <p class="card-text text-truncate">{{ item.content }}</p>
                   <div class="d-flex justify-content-between align-items-baseline">
@@ -88,13 +90,12 @@ export default {
       searchText: '',
       currentPage: 0,
       pages: 0,
-    }
+    };
   },
   computed: {
     filterData() {
       const vm = this;
       let items = [];
-      console.log(vm.searchText);
       if (vm.searchText) {
         items = vm.products.filter((value) => {
           return value.category.includes(vm.searchText);           
@@ -113,11 +114,10 @@ export default {
       });
       vm.pages = newPage.length
       vm.currentPage = 0;
-      console.log('分頁',newPage);
       return newPage;    
     },
     ...mapGetters(['loadingItem']),
-    ...mapGetters('productsModule', ['products', 'categories', 'newProduct'])
+    ...mapGetters('productsModule', ['products', 'categories', 'newProduct']),
   },
   methods: {
     ...mapActions('productsModule', ['getProducts']),
@@ -127,6 +127,6 @@ export default {
   },
   created() {
     this.getProducts();
-  }
+  },
 }
 </script>

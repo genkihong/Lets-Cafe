@@ -26,8 +26,10 @@
     "@vue/cli-service": "^3.5.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-vue": "^5.2.2",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
@@ -39,7 +41,7 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "@vue/standard"
+      "@vue/Airbnb"
     ],
     "rules": {},
     "parserOptions": {

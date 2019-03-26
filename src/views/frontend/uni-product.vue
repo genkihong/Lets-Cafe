@@ -53,9 +53,9 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      productId: '', 
+      productId: '',
       quantity: 1,
-    }
+    };
   },
   computed: {
     ...mapGetters(['loadingItem']),
@@ -71,8 +71,7 @@ export default {
   },
   created() {
     this.productId = this.$route.params.id;
-    console.log(this.productId);
     this.getProduct(this.productId); 
-  }   
+  },   
 }
 </script>

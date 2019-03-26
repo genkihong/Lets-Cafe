@@ -32,7 +32,8 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :Pages="pagination" @getPage="getOrders"></Pagination>    
+    <Pagination :Pages="pagination" @getPage="getOrders"></Pagination>
+    
   </div>
 </template>
 
@@ -50,10 +51,8 @@ export default {
     getOrders(page = 1) {
       const vm = this;
       const url = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/orders?page=${page}`;
-      vm.$store.dispatch('updateLoading', true, { root: true });
-      
+      vm.$store.dispatch('updateLoading', true, { root: true });      
       this.$http.get(url, vm.tempProduct).then((response) => {
-        console.log('所有訂單內容', response);
         vm.orders = response.data.orders;
         vm.pagination = response.data.pagination;
         vm.$store.dispatch('updateLoading', false, { root: true });
@@ -61,7 +60,7 @@ export default {
     },
   },
   computed: {
-    sortOrder() {
+    sortOrder() { // 訂單排序
       const vm = this;
       let newOrder = [];
       if (vm.orders.length) {

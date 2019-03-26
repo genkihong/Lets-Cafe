@@ -77,7 +77,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-primary text-white"
               @click="updateCoupon">更新優惠券</button>
           </div>
         </div>
@@ -119,32 +119,30 @@ export default {
         vm.tempCoupon = {};
       } else {
         vm.tempCoupon = Object.assign({}, item);
+        console.log(vm.tempCoupon);
         const dateAndTime = new Date(vm.tempCoupon.due_date * 1000).toISOString().split('T');
         vm.due_date = dateAndTime[0];
       }
     },
     getCoupons() {
       const vm = this;
-      const url = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupons`;
-      this.$http.get(url, vm.tempProduct).then((response) => {
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupons`;
+      this.$http.get(api, vm.tempProduct).then((response) => {
         vm.coupons = response.data.coupons;
-        console.log(response);
       });
     },
     updateCoupon() {
       const vm = this;
       if (vm.isNew) {
-        const url = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon`;
-        this.$http.post(url, { data: vm.tempCoupon }).then((response) => {
-          console.log(response, vm.tempCoupon);
+        const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon`;
+        this.$http.post(api, { data: vm.tempCoupon }).then((response) => {
           $('#couponModal').modal('hide');
           this.getCoupons();
         });
       } else {
-        const url = `${process.env.VUE_APP_VUE_APP_API_PATH}/api/${process.env.VUE_APP_VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`;
+        const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`;
         vm.due_date = new Date(vm.tempCoupon.due_date * 1000);
-        this.$http.put(url, { data: vm.tempCoupon }).then((response) => {
-          console.log(response);
+        this.$http.put(api, { data: vm.tempCoupon }).then((response) => {
           $('#couponModal').modal('hide');
           this.getCoupons();
         });

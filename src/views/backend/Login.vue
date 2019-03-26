@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Login',
   data() {
@@ -40,9 +42,7 @@ export default {
     signin() {
       const api =`${process.env.VUE_APP_API_PATH}/admin/signin`;
       const vm = this;
-
       this.$http.post(api, vm.user).then((response) => {
-        console.log('登入',response.data);
         if (response.data.success) {
           vm.$router.push('/admin/products');
         }

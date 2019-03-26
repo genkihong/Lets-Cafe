@@ -108,7 +108,7 @@ export default {
     return {
       isActive: '',
       imgUrl: process.env.VUE_APP_IMGURL
-    }
+    };
   },
   computed: {    
     ...mapGetters(['isLoading']),
@@ -119,7 +119,7 @@ export default {
   },
   created() {
     this.getCart();
-  }
+  },
 }
 </script>
 

@@ -132,7 +132,7 @@ export default {
       tempProduct: {},
       isNew: false,
       status: {
-        fileUploading: false,  
+        fileUploading: false,    
       },
     };
   },
@@ -144,9 +144,7 @@ export default {
       const vm = this;
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`;
       vm.$store.dispatch('updateLoading', true, { root: true });
-      console.log(api);
       this.$http.get(api).then((response) => {
-        console.log('取得商品列表', response.data);
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
         vm.$store.dispatch('updateLoading', false, { root: true });
@@ -161,14 +159,13 @@ export default {
         vm.tempProduct = Object.assign({}, item);
         vm.isNew = false;
       }
-      console.log('openModal', isNew);
       $('#productModal').modal('show');
     },
     updateProduct() {
       const vm = this;
       let api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product`;
       let httpMethod = 'post';
-      let showPage = 1;
+      let showPage = 1;  
       let failMsg =  '無法新增產品'   
 
       if (!vm.isNew) {
@@ -177,9 +174,7 @@ export default {
         showPage = vm.pagination.current_page;
         failMsg = '無法修改產品';
       };
-
       this.$http[httpMethod](api, {data: vm.tempProduct}).then((response) => {
-        console.log('新增商品', response.data);
         if (response.data.success) {
           $('#productModal').modal('hide');
           this.$bus.$emit('push-msg', response.data.message, 'success');
@@ -201,7 +196,6 @@ export default {
       const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
       
       this.$http.delete(api).then((response) => {
-        console.log('刪除商品', response.data);
         if (response.data.success) {
           $('#delProductModal').modal('hide');
           this.$bus.$emit('push-msg', response.data.message, 'success');
@@ -227,7 +221,6 @@ export default {
         }
       }).then((response) => {
         vm.status.fileUploading = false;
-
         if (response.data.success) {
           vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
         } else {

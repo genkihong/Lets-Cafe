@@ -1,5 +1,6 @@
+/* eslint-disable no-param-reassign */
 import Vue from 'vue';
-import Vuex from 'vuex'
+import Vuex from 'vuex';
 
 import productsModule from './products';
 import cartModule from './cart';
@@ -15,7 +16,7 @@ export default new Vuex.Store({
   actions: {
     updateLoading(context, status) {
       context.commit('LOADING', status);
-    },  
+    },
   },
   mutations: {
     LOADING(state, status) {
@@ -35,6 +36,6 @@ export default new Vuex.Store({
   },
   modules: {
     productsModule,
-    cartModule
-  }
+    cartModule,
+  },
 });

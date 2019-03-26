@@ -55,8 +55,7 @@
           :class="{'is-invalid': errors.has('address')}" v-validate="'required'" 
           v-model="form.user.address" placeholder="請輸入地址">
           <small class="text-danger" v-if="errors.has('address')">請輸入地址 !</small>
-        </div>
-      
+        </div>      
         <div class="form-group">
           <label for="usermessage">留言</label>
           <textarea name="message" id="usermessage" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
@@ -93,16 +92,14 @@ export default {
       this.$validator.validate().then((result) => {
         if (result) {
           this.$http.post(api, {data: order}).then((response) => {
-            console.log('訂單已建立', response);
             if (response.data.success) {
               vm.$bus.$emit('update-cart');
-              vm.$router.push(`/checkout/${response.data.orderId}`);
+              vm.$router.push(`/checkout/${response.data.orderId}`); // 訂單建立成功後, 前往結帳頁面
             }
             vm.$store.dispatch('updateLoading', false, { root: true });
           });
         } else {
           vm.$store.dispatch('updateLoading', false, { root: true });
-          console.log('欄位不完整');
         }
       });      
     },

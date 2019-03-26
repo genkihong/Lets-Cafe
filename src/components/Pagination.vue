@@ -23,13 +23,14 @@
 <script>
 export default {
   name: 'pagination',
-  props: {
+  props: {                  // 從 products 傳進來的物件
     Pages: {
       type: Object,
     }
   },
-  methods: {
+  methods: {                // 傳出去給 products 的方法
     getPage(page){
+      // console.log('分頁元件',page);
       this.$emit('getPage', page);
     }
   },

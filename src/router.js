@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue';
 import Router from 'vue-router';
 
@@ -8,9 +9,11 @@ export default new Router({
     {
       path: '*',
       redirect: '/',
-    },     
+    },
+    // 前台          
     {
       path: '/',
+      //name: 'index',
       component: () => import('./views/frontend/index.vue'),
       children: [
         {
@@ -40,6 +43,7 @@ export default new Router({
         },
       ]
     },
+    // 後台
     {
       path: '/login',
       name: 'Login',
