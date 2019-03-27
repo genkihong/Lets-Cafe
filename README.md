@@ -37,6 +37,6 @@ https://genkihong.github.io/Lets-Cafe/#/
 google
 
 ## Special Thanks
-特別感謝六角學院-王志誠老師 Vue 課程教學
+特別感謝六角學院 - 王志誠老師 Vue 課程教學
 
 
