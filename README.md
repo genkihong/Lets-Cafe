@@ -27,7 +27,7 @@ https://genkihong.github.io/Lets-Cafe/#/
   * [Bootstrap 4](https://bootstrap-vue.js.org/docs)
   * [Axios](https://github.com/axios/axios)
   * [vue-axios](https://www.npmjs.com/package/vue-axios)
-  * [VeeValidate](https://baianat.github.io/vee-validate/)
+  * [VeeValidate](https://baianat.github.io/vee-validate/guide/getting-started.html)
   * [vue-loading-overlay](https://github.com/ankurk91/vue-loading-overlay)
   
 ## Statement
