@@ -20,7 +20,7 @@ https://genkihong.github.io/Lets-Cafe/#/
 * Vue-Cli 3 
 * Vue-Router 
 * Vuex
-* API應用 (前台後台分離)
+* API應用 (前台 / 後台分離)
 * Bootstrap 4 自訂樣式
 * SCSS
 * Plugin :
