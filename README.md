@@ -1,4 +1,5 @@
-# vue-cli3
+# Let's Cafe
+
 
 ## Project setup
 ```
