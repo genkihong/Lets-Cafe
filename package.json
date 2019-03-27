@@ -43,9 +43,11 @@
       "plugin:vue/essential",
       "@vue/Airbnb"
     ],
-    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/no-parsing-error": "warning"
     }
   },
   "postcss": {

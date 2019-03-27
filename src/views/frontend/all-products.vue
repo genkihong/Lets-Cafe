@@ -38,8 +38,8 @@
             <div class="col-md-6 mb-3" v-for="item in filterData[currentPage]" :key="item.id">
               <div class="card border-0 text-center shadow h-100">
                 <div class="card-hovereffect">
-                  <img class="img-thumbnail bg-cover" :src="item.imageUrl" alt="Let's cafe">
-                  <!-- <div class="bg-cover card-img" :style="{backgroundImage:`url(${item.imageUrl})`}"></div> -->
+                  <img class="img-thumbnail bg-cover card-img" :src="item.imageUrl" alt="Let's Cafe">
+                  <!-- <div class="bg-cover img-thumbnail card-img" :style="{backgroundImage:`url(${item.imageUrl})`}" style="height: 240px;"></div> -->
                 </div>
                 <!-- 查看單一產品 -->
                 <router-link class="btn btn-lighter btn-block btn-lg card-btn rounded-0" 
