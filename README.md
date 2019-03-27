@@ -4,7 +4,7 @@
 ## Demo
 https://genkihong.github.io/Lets-Cafe/#/
 
-## Function introduction
+## Function Introduction
 * 前台：
   * 商品介紹
   * 購物車
@@ -36,7 +36,7 @@ https://genkihong.github.io/Lets-Cafe/#/
 ## Source
 google
 
-## Special thanks
+## Special Thanks
 特別感謝六角學院-王志誠老師 Vue 課程教學
 
 
