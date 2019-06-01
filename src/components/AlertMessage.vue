@@ -22,11 +22,13 @@ export default {
   methods: {
     updateMessage(message, status) {
       const timestamp = Math.floor(new Date() / 1000);
-      this.messages.push({
-        message,
-        status,
-        timestamp,
-      });
+      this.messages.push(
+        {
+          message,
+          status,
+          timestamp,
+        }
+      );
       this.removeMessageWithTiming(timestamp); // 自動移除此 alert
     },
     removeMessage(num) {

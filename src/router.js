@@ -1,8 +1,7 @@
-/* eslint-disable */
 import Vue from 'vue';
 import Router from 'vue-router';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -10,10 +9,10 @@ export default new Router({
       path: '*',
       redirect: '/',
     },
-    // 前台          
+    // 前台
     {
       path: '/',
-      //name: 'index',
+      // name: 'index',
       component: () => import('./views/frontend/index.vue'),
       children: [
         {
@@ -30,7 +29,7 @@ export default new Router({
           path: 'cart',
           name: 'Cart',
           component: () => import('./views/frontend/cart.vue'),
-        },  
+        },
         {
           path: 'order',
           name: 'Order',
@@ -41,7 +40,7 @@ export default new Router({
           name: 'Checkout',
           component: () => import('./views/frontend/checkout.vue'),
         },
-      ]
+      ],
     },
     // 後台
     {
@@ -74,5 +73,5 @@ export default new Router({
         },
       ],
     },
-  ]
+  ],
 });

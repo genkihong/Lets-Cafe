@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container" v-if="myCart.carts.length">
+    <div class="container" v-if="myCart.carts.length" :key="1">
       <!-- breadcrumb -->
       <div class="row justify-content-center">
         <div class="col-md-10">
@@ -8,13 +8,13 @@
             <ol class="breadcrumb bg-transparent pl-0">
               <li class="breadcrumb-item">
                 <router-link class="text-white text-decoration-none" to="/">Let's cafe</router-link>
-              </li>            
+              </li>
               <li class="breadcrumb-item active" aria-current="page">購物車清單</li>
             </ol>
           </nav>
         </div>
-      </div>  
-      <!-- 購物車清單 --> 
+      </div>
+      <!-- 購物車清單 -->
       <div class="row justify-content-center my-3">
         <div class="col-md-10">
           <div class="card bg-main">
@@ -33,7 +33,7 @@
               </span>
             </div>
           </div>
-          
+
           <div id="collapseCart" class="collapse">
             <h3 class="text-center text-lighter p-3">購物車清單</h3>
             <table class="table table-sm text-lighter table-borderless">
@@ -49,13 +49,13 @@
               <tbody>
                 <tr v-for="cart in myCart.carts" :key="cart.id">
                   <td class="align-middle">
-                    <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeModal" 
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeModal"
                     :data-title="cart.product.title" @click="removeModal(cart)">
                       <i class="fas fa-trash-alt"></i>
                     </button>
                   </td>
                   <td class="align-middle d-none d-sm-table-cell">
-                    <!-- <div class="img-thumbnail bg-cover" style="width: 160px; height: 90px;" 
+                    <!-- <div class="img-thumbnail bg-cover" style="width: 160px; height: 90px;"
                       :style="{backgroundImage: `url(${cart.product.imageUrl})`}">
                     </div> -->
                     <img :src="cart.product.imageUrl"  class="img-thumbnail" width="160" alt="">
@@ -66,8 +66,8 @@
                   </td>
                   <td class="align-middle">{{ cart.qty }} {{ cart.product.unit }}</td>
                   <!-- 小計 -->
-                  <td class="align-middle text-right">{{cart.final_total | currency}}</td>            
-                </tr>           
+                  <td class="align-middle text-right">{{cart.final_total | currency}}</td>
+                </tr>
               </tbody>
               <tfoot>
                 <!-- 原價 -->
@@ -85,7 +85,7 @@
                   </td>
                 </tr>
               </tfoot>
-            </table>                
+            </table>
           </div>
           <div class="input-group input-group-sm">
             <input type="text" class="form-control" placeholder="請輸入優惠碼 coffee" v-model="coupon_code">
@@ -94,15 +94,15 @@
                 套用優惠碼
               </button>
             </div>
-          </div>    
+          </div>
           <router-link class="btn btn-lighter btn-block btn-lg card-btn my-3" to="/order">
             <i class="fas fa-user-alt fa-lg mr-3"></i>建立訂單
           </router-link>
-        </div>        
-      </div>   
+        </div>
+      </div>
     </div>
     <!-- 無購物車清單 -->
-    <div class="container" v-if="!myCart.carts.length">
+    <div class="container" v-if="!myCart.carts.length" :key="2">
       <!-- breadcrumb -->
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -110,22 +110,22 @@
             <ol class="breadcrumb bg-transparent pl-0">
               <li class="breadcrumb-item">
                 <router-link class="text-white text-decoration-none" to="/">Let's cafe</router-link>
-              </li>            
+              </li>
               <li class="breadcrumb-item active" aria-current="page">購物車清單</li>
             </ol>
           </nav>
         </div>
-      </div>  
-      <div class="row justify-content-center align-items-center">    
+      </div>
+      <div class="row justify-content-center align-items-center">
         <div class="col-md-6">
           <div class="d-flex justify-content-center align-items-center text-lighter my-5">
-            <h2>目前沒有任何購物清單喔 !</h2>         
-          </div> 
+            <h2>目前沒有任何購物清單喔 !</h2>
+          </div>
           <router-link class="rounded-sm btn btn-lighter btn-block btn-lg card-btn my-3" to="/">
-            <i class="fas fa-cart-arrow-down fa-lg mr-3"></i>前往購物           
-          </router-link>             
-        </div>    
-      </div>    
+            <i class="fas fa-cart-arrow-down fa-lg mr-3"></i>前往購物
+          </router-link>
+        </div>
+      </div>
     </div>
     <!-- Remove modal -->
     <div class="modal fade" id="removeModal" tabindex="-1">
@@ -138,7 +138,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p class="h5 text-secondary font-weight-bold">確認要刪除訂單 !</p> 
+            <p class="h5 text-secondary font-weight-bold">確認要刪除訂單 !</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
@@ -157,36 +157,84 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      coupon_code: '',
+      coupon_code: '', // 優惠卷
       tempCart: {},
     };
   },
   computed: {
-    ...mapGetters ('cartModule', ['myCart']),
+    ...mapGetters('cartModule', ['myCart']),
+    // myCart() {
+    //   return this.$store.state.myCart;
+    // }
   },
   methods: {
-    ...mapActions ('cartModule', ['getCart']),
+    ...mapActions('cartModule', ['getCart']),
+    // getCart() {  // 取得購物車內容
+    //   this.$store.dispatch('getCart');
+    // const vm = this;
+    // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+    // vm.$store.dispatch('updateLoading', true);
 
+    // this.$http.get(api).then((response) => {
+    //   console.log('cart 購物車', response);
+    //   vm.myCart = response.data.data;
+    //   vm.$store.dispatch('updateLoading', false);
+    // });
+    // },
     removeModal(cart) {
       const vm = this;
       vm.tempCart = Object.assign({}, cart);
-      
-      $('#removeModal').on('show.bs.modal', function (event) {
-        var btn = $(event.relatedTarget);
-        var title = btn.data('title');
-        var modal = $(this);
+      // console.log('tempCart', vm.tempCart);
+
+      $('#removeModal').on('show.bs.modal', function(event) { // Modal title:產品名稱
+        const btn = $(event.relatedTarget);
+        const title = btn.data('title');
+        const modal = $(this);
+        // console.log('show.bs.modal', title);
         modal.find('.modal-title').text(title);
       });
     },
-    removeCart(id) {
+    removeCart(id) { // 刪除購物車
       this.$store.dispatch('cartModule/removeCart', id);
+      // const vm = this;
+      // const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${vm.tempCart.id}`;
+      // vm.$store.dispatch('updateLoading', true);
+
+      // this.$http.delete(api).then((response) => {
+      //   console.log('刪除購物車', response);
+      //     $('#removeModal').modal('hide');
+      //     vm.$bus.$emit('push-msg', response.data.message, 'success');
+      //     vm.$bus.$emit('update-cart');
+      //     vm.getCart();
+      //     vm.$store.dispatch('updateLoading', false);
+      // });
     },
-    addCouponCode(coupon_code) {
-      this.$store.dispatch('cartModule/addCouponCode', coupon_code);
-    },    
+    addCouponCode(coupon) { // 使用優惠券
+      this.$store.dispatch('cartModule/addCouponCode', coupon);
+      //   this.$store.dispatch('cartModule/addCouponCode', coupon_code);
+      //   const vm = this;
+      //   const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`;
+      //   const coupon = {
+      //     code: vm.coupon_code,
+      //   }
+      //   vm.$store.dispatch('updateLoading', true);
+
+    //   this.$http.post(api, {data: coupon}).then((response) => {
+    //     console.log('優惠卷', response);
+    //     if (response.data.success) {
+    //       vm.$bus.$emit('push-msg', response.data.message, 'success');
+    //       vm.getCart();
+    //       vm.$store.dispatch('updateLoading', false);
+    //     } else {
+    //       vm.$bus.$emit('push-msg', response.data.message, 'danger');
+    //       vm.getCart();
+    //       vm.$store.dispatch('updateLoading', false);
+    //     }
+    //   });
+    },
   },
   created() {
-    this.getCart();     
+    this.getCart();
   },
-}
+};
 </script>

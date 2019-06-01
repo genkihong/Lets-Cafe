@@ -28,10 +28,10 @@
             <div class="btn-group ">
               <button class="btn btn-outline-basic btn-sm" @click="openModal(false, item)">編輯</button>
               <button class="btn btn-outline-danger btn-sm" @click="delProductModal(item)">刪除</button>
-            </div>                 
+            </div>
           </td>
         </tr>
-      </tbody>       
+      </tbody>
     </table>
     <!-- 分頁 -->
     <Pagination :Pages="pagination" @getPage="getProducts"></Pagination>
@@ -89,6 +89,7 @@
                   </div>
                 </div>
                 <hr>
+
                 <div class="form-group">
                   <label for="description">產品描述</label>
                   <textarea type="text" class="form-control" id="description" placeholder="請輸入產品描述" v-model="tempProduct.description"></textarea>
@@ -108,7 +109,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn text-white" :class="{'btn-primary':isNew,'btn-basic':!isNew}" 
+            <button type="button" class="btn text-white" :class="{'btn-primary':isNew,'btn-basic':!isNew}"
               @click="updateProduct">確認</button>
           </div>
         </div>
@@ -121,60 +122,66 @@
 
 <script>
 import $ from 'jquery';
-import DeleteModal from '@/components/DeleteModal';
+import DeleteModal from '@/components/DeleteModal.vue';
+
 export default {
   data() {
     return {
       products: [],
       pagination: {
         current_page: '',
-      },   
-      tempProduct: {},
-      isNew: false,
+      },
+      tempProduct: {}, // 新增/修改商品
+      isNew: false, // true: 新增, false: 修改
       status: {
-        fileUploading: false,    
+        fileUploading: false, // true: show spin icon, false: hide spin icon
       },
     };
   },
-  components: {
+  components: { // 啟用元件
     DeleteModal,
   },
   methods: {
-    getProducts(page = 1) {
+    getProducts(page = 1) { // 取得所有商品
       const vm = this;
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`;
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`;
       vm.$store.dispatch('updateLoading', true, { root: true });
+      // console.log(api);
       this.$http.get(api).then((response) => {
-        vm.products = response.data.products;
-        vm.pagination = response.data.pagination;
+        // console.log('取得商品列表', response.data);
+        vm.products = response.data.products; // 取得商品資料
+        vm.pagination = response.data.pagination; // 取得分頁資料
         vm.$store.dispatch('updateLoading', false, { root: true });
       });
     },
-    openModal(isNew, item) {
+    openModal(isNew, item) { // 新增 & 修改商品 Modal
       const vm = this;
-      if (isNew) {
+      if (isNew) { // 建立新商品
         vm.tempProduct = {};
         vm.isNew = true;
-      } else {
-        vm.tempProduct = Object.assign({}, item);
+      } else { // 修改商品
+        vm.tempProduct = Object.assign({}, item); // 避免物件傳參考讓 item == tempProduct
         vm.isNew = false;
       }
+      // console.log('openModal', isNew);
       $('#productModal').modal('show');
     },
     updateProduct() {
       const vm = this;
-      let api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product`;
+      let api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product`; // 新增商品 API
       let httpMethod = 'post';
-      let showPage = 1;  
-      let failMsg =  '無法新增產品'   
+      let showPage = 1; // 新增商品後, 畫面會回到第一頁
+      let failMsg = '無法新增產品';
 
-      if (!vm.isNew) {
-        api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}` // 修改商品 API
+      if (!vm.isNew) { // 更換 API method
+        api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`; // 修改商品 API
         httpMethod = 'put';
-        showPage = vm.pagination.current_page;
+        showPage = vm.pagination.current_page; // 修改商品後, 畫面會在同一頁面
         failMsg = '無法修改產品';
-      };
-      this.$http[httpMethod](api, {data: vm.tempProduct}).then((response) => {
+      }
+
+      this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
+        // console.log('新增商品', response.data);
         if (response.data.success) {
           $('#productModal').modal('hide');
           this.$bus.$emit('push-msg', response.data.message, 'success');
@@ -183,7 +190,7 @@ export default {
           $('#productModal').modal('hide');
           this.$bus.$emit('push-msg', failMsg, 'danger');
           vm.getProducts();
-        };
+        }
       });
     },
     delProductModal(item) {
@@ -193,44 +200,51 @@ export default {
     },
     delProduct() {
       const vm = this;
-      const api =`${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
-      
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
+
       this.$http.delete(api).then((response) => {
+        // console.log('刪除商品', response.data);
         if (response.data.success) {
           $('#delProductModal').modal('hide');
           this.$bus.$emit('push-msg', response.data.message, 'success');
-          vm.getProducts(vm.pagination.current_page);
+          vm.getProducts(vm.pagination.current_page); // 刪除商品後, 畫面會在同一頁面
         } else {
           $('#productModal').modal('hide');
           this.$bus.$emit('push-msg', response.data.message, 'danger');
           vm.getProducts();
-        }        
+        }
       });
     },
     uploadFile() {
+      // console.log(this);
       const vm = this;
       const uploadedFile = vm.$refs.files.files[0];
       const formData = new FormData();
-      formData.append('file-to-upload', uploadedFile);
+      formData.append('file-to-upload', uploadedFile); // append(欄位名稱, 要上傳的檔案)
 
       const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/upload`;
       vm.status.fileUploading = true;
       this.$http.post(api, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data', // 上傳檔案格式
+        },
       }).then((response) => {
+        // console.log('上傳檔案', response.data);
         vm.status.fileUploading = false;
+
         if (response.data.success) {
-          vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
+          // vm.tempProduct.imageUrl = response.data.imageUrl;
+          // console.log(vm.tempProduct);
+          vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl); // 寫入 response.data.imageUrl
         } else {
-          this.$bus.$emit('push-msg', response.data.message, 'danger');
-        };
+          this.$bus.$emit('push-msg', response.data.message, 'danger'); // 上傳檔案失敗 alert 訊息
+        }
       });
     },
   },
   created() {
     this.getProducts();
+    // this.$bus.$emit('push-msg', 'This is alert text !!'); // alert 測試用
   },
 };
 </script>

@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'Login',
   data() {
@@ -42,9 +40,11 @@ export default {
     signin() {
       const api =`${process.env.VUE_APP_API_PATH}/admin/signin`;
       const vm = this;
+
       this.$http.post(api, vm.user).then((response) => {
+        console.log('登入',response.data);
         if (response.data.success) {
-          vm.$router.push('/admin/products');
+          vm.$router.push('/admin/products');  // 登入成功就跳至 products 頁面
         }
       });
     },
@@ -53,6 +53,19 @@ export default {
 </script>
 <style lang="scss" scoped>
 
+// html, body {
+//   height: 100%;
+// }
+
+//body {
+//   background-color: #424242 !important ;
+//   display: -ms-flexbox;
+//   display: flex;
+//   -ms-flex-align: center;
+//   align-items: center;
+//   padding-top: 40px;
+//   padding-bottom: 40px;
+//}
 .btn-lg{
   padding: .5rem 1rem;
 }

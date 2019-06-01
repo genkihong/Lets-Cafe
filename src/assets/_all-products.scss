@@ -94,12 +94,12 @@
 .card-hovereffect {
   overflow:hidden;
 }
-.card-hovereffect .card-img {
+.card-hovereffect img {
   display: block;
-  -webkit-transition:all .3s linear;
-  transition:all .3s linear;
+  -webkit-transition:all .4s linear;
+  transition:all .4s linear;
 }
-.card-hovereffect:hover .card-img {
+.card-hovereffect:hover img {
   -ms-transform:scale(1.2);
   -webkit-transform:scale(1.2);
   transform:scale(1.2);

@@ -48,11 +48,13 @@ export default {
     };
   },
   methods: {
-    getOrders(page = 1) {
+    getOrders(page = 1) { // 取得所有訂單內容
       const vm = this;
       const url = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/orders?page=${page}`;
-      vm.$store.dispatch('updateLoading', true, { root: true });      
+      vm.$store.dispatch('updateLoading', true, { root: true });
+      
       this.$http.get(url, vm.tempProduct).then((response) => {
+        console.log('所有訂單內容', response);
         vm.orders = response.data.orders;
         vm.pagination = response.data.pagination;
         vm.$store.dispatch('updateLoading', false, { root: true });
