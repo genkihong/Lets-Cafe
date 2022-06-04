@@ -51,7 +51,7 @@
                   <div class="d-flex justify-content-between align-items-baseline">
                     <div class="h3" v-if="!item.price">{{ item.origin_price | currency}}</div>
                     <del class="h5 font-italic" v-if="item.price">原價 {{ item.origin_price | currency}}</del>
-                    <div class="h3 text-danger" v-if="item.price">特價 {{ item.price | currency}}</div>
+                    <div class="h5 text-danger" v-if="item.price">特價 {{ item.price | currency}}</div>
                   </div>
                 </div>
                 <div class="card-footer p-0">
