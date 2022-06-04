@@ -1,13 +1,13 @@
 <template>
   <div>
     <Loading :active.sync="isLoading"></Loading>
-    <Alert/>
-    <Navbar/>
+    <Alert />
+    <Navbar />
     <div class="container-fluid">
       <div class="row mt-5">
-        <Sidebar/>
+        <Sidebar />
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <router-view/> 
+          <router-view />
         </main>
       </div>
     </div>
@@ -21,13 +21,17 @@ import Sidebar from '@/components/Sidebar';
 import Alert from '@/components/AlertMessage';
 
 export default {
-  computed: {    
-    ...mapGetters(['isLoading']),
-  },
   components: {
     Alert,
     Navbar,
     Sidebar,
+  },
+  computed: {
+    ...mapGetters(['isLoading']),
+  },
+  created() {
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+    this.$http.defaults.headers.common.Authorization = `${token}`;
   },
 };
 </script>
